@@ -9,23 +9,23 @@ import javafx.stage.Stage;
 
 public class Main extends Application{
 
+    private Settings settings = new Settings();
     private Parent content() {
         BorderPane root = new BorderPane();
-        MineField field = new MineField();
+        MineField field = new MineField(settings.getX_TILES(),settings.getY_TILES(),settings.getMINES());
 
         Button newGameButton = new Button("Новая игра");
         newGameButton.setOnAction(e -> newGame());
         Button settingsButton = new Button("Настройки");
-        settingsButton.setOnAction(e -> SettingsWindow.openSettings());
+        settingsButton.setOnAction(e -> Settings.openSettings());
         ToolBar toolBar = new ToolBar(newGameButton, settingsButton);
 
         root.setTop(toolBar);
         root.setCenter(field);
-        root.setPrefHeight(field.getTILE_SIZE() * (field.getY_TILES() + 1)
-                - field.getY_DISPLACEMENT() * field.getY_TILES());
-        root.setPrefWidth(field.getTILE_SIZE() * field.getX_TILES() + field.getX_DISPLACEMENT());
+        root.setPrefHeight(field.getTILE_SIZE() * (settings.getX_TILES() + 1)
+                - field.getX_DISPLACEMENT() * settings.getX_TILES());
+        root.setPrefWidth(field.getTILE_SIZE() * settings.getY_TILES() + field.getY_DISPLACEMENT());
         return root;
-
     }
 
     private Scene scene = new Scene(content());
@@ -40,6 +40,7 @@ public class Main extends Application{
 
     public void newGame() {
         scene.setRoot(content());
+        scene.getWindow().sizeToScene();
     }
 
 

@@ -1,13 +1,11 @@
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
+
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Tile extends StackPane {
 
@@ -18,6 +16,7 @@ public class Tile extends StackPane {
     private boolean hasQuestion = false;
     private Circle border;
     private Text text = new Text();
+
 
     public Tile(int xCoord, int yCoord, double TILE_SIZE, double X_DISPLACEMENT, double Y_DISPLACEMENT) {
         this.xCoord = xCoord;
@@ -33,10 +32,10 @@ public class Tile extends StackPane {
         getChildren().addAll(border, text);
 
 
-        double translateY = xCoord * (TILE_SIZE - Y_DISPLACEMENT);
+        double translateY = xCoord * (TILE_SIZE - X_DISPLACEMENT);
         double translateX;
         if (xCoord % 2 == 0) translateX = yCoord * TILE_SIZE;
-        else translateX = yCoord * TILE_SIZE + X_DISPLACEMENT;
+        else translateX = yCoord * TILE_SIZE + Y_DISPLACEMENT;
 
 
         setTranslateX(translateX);
@@ -77,16 +76,19 @@ public class Tile extends StackPane {
         text.setVisible(true);
     }
 
-    public void setMined(boolean mined) {
-        isMined = mined;
+    public void setMined() {
+        isMined = true;
     }
 
     public void setFlagged(boolean flagged) {
         isFlagged = flagged;
     }
 
-    public void setQuestion(boolean hasQuestion) {
-        hasQuestion = hasQuestion;
+    public void setQuestion(boolean hsQuestion) {
+        hasQuestion = hsQuestion;
     }
 
+    public void setText(String string) {
+        this.text.setText(string);
+    }
 }

@@ -10,26 +10,30 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
-public class SettingsWindow {
+public class Settings {
+    private static int X_TILES = 9;
+    private static int Y_TILES = 9;
+    private static int MINES = 20;
+
     public static void openSettings() {
         Stage settingsWindow = new Stage();
         settingsWindow.initModality(Modality.APPLICATION_MODAL);
         settingsWindow.setTitle("Настройки");
 
         Text widthText = new Text("Ячеек в ширину (9-30):");
-        TextField widthTextField = new TextField("9");
+        TextField widthTextField = new TextField(String.valueOf(Y_TILES));
         HBox widthHBox = new HBox(widthText, widthTextField);
         widthHBox.setSpacing(5);
         widthHBox.setAlignment(Pos.CENTER);
 
         Text heightText = new Text("Ячеек в высоту (9-24):");
-        TextField heightTextField = new TextField("9");
+        TextField heightTextField = new TextField(String.valueOf(X_TILES));
         HBox heightHBox = new HBox(heightText, heightTextField);
         heightHBox.setSpacing(5.0);
         heightHBox.setAlignment(Pos.CENTER);
 
-        Text minesText = new Text("Количество мин:");
-        TextField minesTextField = new TextField("15");
+        Text minesText = new Text("Количество мин(<0,3*x*y:");
+        TextField minesTextField = new TextField(String.valueOf(MINES));
         HBox minesHBox = new HBox(minesText, minesTextField);
         minesHBox.setSpacing(5.0);
         minesHBox.setAlignment(Pos.CENTER);
@@ -37,8 +41,17 @@ public class SettingsWindow {
         Button okButton = new Button("OK"),
                 cancelButton = new Button("Отмена");
         cancelButton.setOnAction(e -> settingsWindow.close());
+        okButton.setOnAction(e -> {
+            if (Integer.parseInt(minesTextField.getText()) <= 0.3 * Integer.parseInt(heightTextField.getText())*
+                    Integer.parseInt(widthTextField.getText())) {
+                X_TILES = Integer.parseInt(heightTextField.getText());
+                Y_TILES = Integer.parseInt(widthTextField.getText());
+                MINES = Integer.parseInt(minesTextField.getText());
+                settingsWindow.close();
+            }
+        });
         HBox buttons = new HBox(okButton, cancelButton);
-        buttons.setSpacing(10);
+        buttons.setSpacing(20);
         buttons.setAlignment(Pos.CENTER);
 
         VBox vBox = new VBox(widthHBox, heightHBox, minesHBox, buttons);
@@ -50,5 +63,17 @@ public class SettingsWindow {
         Scene settingsScene = new Scene(settings, 330, 150);
         settingsWindow.setScene(settingsScene);
         settingsWindow.show();
+    }
+
+    public int getX_TILES() {
+        return X_TILES;
+    }
+
+    public int getY_TILES() {
+        return Y_TILES;
+    }
+
+    public int getMINES() {
+        return MINES;
     }
 }
