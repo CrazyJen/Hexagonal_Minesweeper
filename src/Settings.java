@@ -20,19 +20,19 @@ public class Settings {
         settingsWindow.initModality(Modality.APPLICATION_MODAL);
         settingsWindow.setTitle("Настройки");
 
-        Text widthText = new Text("Ячеек в ширину (9-30):");
+        Text widthText = new Text("Ячеек в ширину (5-20):");
         TextField widthTextField = new TextField(String.valueOf(Y_TILES));
         HBox widthHBox = new HBox(widthText, widthTextField);
         widthHBox.setSpacing(5);
         widthHBox.setAlignment(Pos.CENTER);
 
-        Text heightText = new Text("Ячеек в высоту (9-24):");
+        Text heightText = new Text("Ячеек в высоту (5-15):");
         TextField heightTextField = new TextField(String.valueOf(X_TILES));
         HBox heightHBox = new HBox(heightText, heightTextField);
         heightHBox.setSpacing(5.0);
         heightHBox.setAlignment(Pos.CENTER);
 
-        Text minesText = new Text("Количество мин(<0,3*x*y:");
+        Text minesText = new Text("Количество мин(<0,3*x*y):");
         TextField minesTextField = new TextField(String.valueOf(MINES));
         HBox minesHBox = new HBox(minesText, minesTextField);
         minesHBox.setSpacing(5.0);
@@ -42,7 +42,10 @@ public class Settings {
                 cancelButton = new Button("Отмена");
         cancelButton.setOnAction(e -> settingsWindow.close());
         okButton.setOnAction(e -> {
-            if (Integer.parseInt(minesTextField.getText()) <= 0.3 * Integer.parseInt(heightTextField.getText())*
+            if (Integer.parseInt(heightTextField.getText()) <=15 && Integer.parseInt(heightTextField.getText()) >= 5 &&
+                    Integer.parseInt(widthTextField.getText()) <= 20 &&
+                    Integer.parseInt(widthTextField.getText()) >= 5 &&
+                    Integer.parseInt(minesTextField.getText()) <= 0.3 * Integer.parseInt(heightTextField.getText())*
                     Integer.parseInt(widthTextField.getText())) {
                 X_TILES = Integer.parseInt(heightTextField.getText());
                 Y_TILES = Integer.parseInt(widthTextField.getText());

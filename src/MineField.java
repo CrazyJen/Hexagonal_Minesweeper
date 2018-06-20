@@ -1,12 +1,11 @@
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class MineField extends Pane {
-    private final double TILE_SIZE = 50;
+    private final double TILE_SIZE = 40;
     private final double Y_DISPLACEMENT = TILE_SIZE / 2;
     private final double X_DISPLACEMENT = TILE_SIZE * 0.15;
     private Tile[][] field;
@@ -16,17 +15,18 @@ public class MineField extends Pane {
         field = new Tile[X_TILES][Y_TILES];
         for (int x = 0; x < X_TILES; x++) {
             for (int y = 0; y < Y_TILES; y++) {
-                Tile tile = new Tile(x, y, TILE_SIZE, X_DISPLACEMENT, Y_DISPLACEMENT);
+                Tile tile = new Tile(x, y, TILE_SIZE, Y_DISPLACEMENT, X_DISPLACEMENT);
                 field[x][y] = tile;
                 tile.setOnMouseClicked(e -> {
                     if (e.getButton() == MouseButton.PRIMARY) this.open(tile, X_TILES, Y_TILES, MINES);
                     if (e.getButton() == MouseButton.SECONDARY)
-                        if (tile.isFlagged()) {
-                            tile.setFlagged(false);
-                            tile.setQuestion(true);
-                        } else if (tile.hasQuestion()) tile.setQuestion(false);
-                        else tile.setFlagged(true);
-
+                        if (!tile.isOpen()) {
+                            if (tile.isFlagged()) {
+                                tile.setFlagged(false);
+                                tile.setQuestion(true);
+                            } else if (tile.hasQuestion()) tile.setQuestion(false);
+                            else tile.setFlagged(true);
+                        }
                 });
                 getChildren().add(tile);
             }
@@ -41,7 +41,6 @@ public class MineField extends Pane {
             Tile tile = field[x][y];
             if (!tile.isMined()) {
                 tile.setMined();
-                tile.setText("X");
                 setMines++;
             }
         }
@@ -50,7 +49,10 @@ public class MineField extends Pane {
             for (int y = 0; y < Y_TILES; y++) {
                 Tile tile = field[x][y];
                 if (!tile.isMined()) {
-                    long bombs = this.getNeighbours(tile, X_TILES, Y_TILES).stream().filter(t -> t.isMined()).count();
+                    int bombs = 0;
+                    List<Tile> neighbours = this.getNeighbours(tile, X_TILES, Y_TILES);
+                    for (Tile t : neighbours)
+                        if (t.isMined()) bombs++;
                     if (bombs > 0)
                         tile.setText(String.valueOf(bombs));
                 }
@@ -82,11 +84,14 @@ public class MineField extends Pane {
         if (tile.isMined()) {
             for (Tile[] t : field)
                 for (Tile e : t)
-                    if (e.isMined()) e.setOpen();
+                    if (e.isMined()) {
+                        e.setOpen();
+                    }
             ResultWindow.openResultWindow("Поражение!", "Вы проиграли!");
         }
 
         tile.setOpen();
+
         totallyOpened++;
         if (tile.getText().isEmpty()) {
             for (Tile t : this.getNeighbours(tile, X_TILES, Y_TILES))

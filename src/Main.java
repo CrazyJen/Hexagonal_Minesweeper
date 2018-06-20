@@ -8,7 +8,6 @@ import javafx.stage.Stage;
 
 
 public class Main extends Application{
-
     private Settings settings = new Settings();
     private Parent content() {
         BorderPane root = new BorderPane();
@@ -38,7 +37,7 @@ public class Main extends Application{
         primaryStage.show();
     }
 
-    public void newGame() {
+    private void newGame() {
         scene.setRoot(content());
         scene.getWindow().sizeToScene();
     }
