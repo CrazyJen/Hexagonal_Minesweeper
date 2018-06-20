@@ -30,7 +30,7 @@ public class Tile extends StackPane {
 
 
         text.setFont(Font.font(18));
-        text.setVisible(true);
+        text.setVisible(false);
 
         flag.setVisible(false);
         flag.setFitHeight(25);

@@ -10,7 +10,8 @@ public class MineField extends Pane {
     private final double X_DISPLACEMENT = TILE_SIZE * 0.15;
     private Tile[][] field;
     private int totallyOpened = 0;
-
+    private boolean endMessageShown = false;
+    private boolean firstClick = true;
     public MineField(int X_TILES, int Y_TILES, int MINES) {
         field = new Tile[X_TILES][Y_TILES];
         for (int x = 0; x < X_TILES; x++) {
@@ -31,17 +32,21 @@ public class MineField extends Pane {
                 getChildren().add(tile);
             }
         }
+    }
 
+    private void mining(int X_TILES, int Y_TILES, int MINES, int xFirst, int yFirst) {
         int setMines = 0;
 
         while (setMines < MINES) {
             Random random = new Random();
-            int x = random.nextInt(X_TILES - 1);
-            int y = random.nextInt(Y_TILES - 1);
-            Tile tile = field[x][y];
-            if (!tile.isMined()) {
-                tile.setMined();
-                setMines++;
+            int x = random.nextInt(X_TILES);
+            int y = random.nextInt(Y_TILES);
+            if (x != xFirst && y != yFirst){
+                Tile tile = field[x][y];
+                if (!tile.isMined()) {
+                    tile.setMined();
+                    setMines++;
+                }
             }
         }
 
@@ -58,7 +63,6 @@ public class MineField extends Pane {
                 }
             }
     }
-
     private List<Tile> getNeighbours(Tile tile, int X_TILES, int Y_TILES) {
         List<Tile> neighbours = new ArrayList<>();
         int x = tile.getxCoord();
@@ -79,6 +83,10 @@ public class MineField extends Pane {
     }
 
     private void open(Tile tile, int X_TILES, int Y_TILES, int MINES) {
+        if (firstClick) {
+            mining(X_TILES, Y_TILES, MINES, tile.getxCoord(), tile.getyCoord());
+            firstClick = false;
+        }
         if (tile.isOpen() || tile.isFlagged())
             return;
         if (tile.isMined()) {
@@ -87,7 +95,11 @@ public class MineField extends Pane {
                     if (e.isMined()) {
                         e.setOpen();
                     }
-            ResultWindow.openResultWindow("Поражение!", "Вы проиграли!");
+            if (!endMessageShown) {
+                ResultWindow.openResultWindow("Поражение!", "Вы проиграли!");
+                endMessageShown = true;
+            }
+            return;
         }
 
         tile.setOpen();
@@ -98,8 +110,9 @@ public class MineField extends Pane {
                 this.open(t, X_TILES, Y_TILES, MINES);
 
         }
-        if (totallyOpened == X_TILES * Y_TILES - MINES) {
+        if (totallyOpened == X_TILES * Y_TILES - MINES && !endMessageShown) {
             ResultWindow.openResultWindow("Победа!", "Вы победили!");
+            endMessageShown = true;
         }
     }
 

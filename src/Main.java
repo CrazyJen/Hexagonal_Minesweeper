@@ -7,11 +7,12 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 
-public class Main extends Application{
+public class Main extends Application {
     private Settings settings = new Settings();
+
     private Parent content() {
         BorderPane root = new BorderPane();
-        MineField field = new MineField(settings.getX_TILES(),settings.getY_TILES(),settings.getMINES());
+        MineField field = new MineField(settings.getX_TILES(), settings.getY_TILES(), settings.getMINES());
 
         Button newGameButton = new Button("Новая игра");
         newGameButton.setOnAction(e -> newGame());
@@ -41,7 +42,6 @@ public class Main extends Application{
         scene.setRoot(content());
         scene.getWindow().sizeToScene();
     }
-
 
 
     public static void main(String[] args) {
