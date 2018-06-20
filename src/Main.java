@@ -14,9 +14,9 @@ public class Main extends Application {
         BorderPane root = new BorderPane();
         MineField field = new MineField(settings.getX_TILES(), settings.getY_TILES(), settings.getMINES());
 
-        Button newGameButton = new Button("Новая игра");
+        Button newGameButton = new Button("New game");
         newGameButton.setOnAction(e -> newGame());
-        Button settingsButton = new Button("Настройки");
+        Button settingsButton = new Button("Settings");
         settingsButton.setOnAction(e -> settings.openSettings());
         ToolBar toolBar = new ToolBar(newGameButton, settingsButton);
 

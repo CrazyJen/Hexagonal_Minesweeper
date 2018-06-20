@@ -100,7 +100,7 @@ public class MineField extends Pane {
                         e.setOpen();
                     }
             if (!endMessageShown) {
-                ResultWindow.openResultWindow("Поражение!", "Вы проиграли!");
+                ResultWindow.openResultWindow("Defeat!", "Game Over!");
                 endMessageShown = true;
             }
             return;
@@ -115,7 +115,7 @@ public class MineField extends Pane {
 
         }
         if (totallyOpened == X_TILES * Y_TILES - MINES && !endMessageShown) {
-            ResultWindow.openResultWindow("Победа!", "Вы победили!");
+            ResultWindow.openResultWindow("Victory!", "You Won!");
             endMessageShown = true;
         }
     }

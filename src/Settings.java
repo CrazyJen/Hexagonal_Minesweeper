@@ -18,21 +18,21 @@ public class Settings {
     public void openSettings() {
         Stage settingsWindow = new Stage();
         settingsWindow.initModality(Modality.APPLICATION_MODAL);
-        settingsWindow.setTitle("Настройки");
+        settingsWindow.setTitle("Settings");
 
-        Text widthText = new Text("Ячеек в ширину (5 - 20):");
+        Text widthText = new Text("Tiles in width (5 - 20):");
         TextField widthTextField = new TextField(String.valueOf(Y_TILES));
         HBox widthHBox = new HBox(widthText, widthTextField);
         widthHBox.setSpacing(5);
         widthHBox.setAlignment(Pos.CENTER);
 
-        Text heightText = new Text("Ячеек в высоту (5 - 5):");
+        Text heightText = new Text("Tiles in height (5 - 15):");
         TextField heightTextField = new TextField(String.valueOf(X_TILES));
         HBox heightHBox = new HBox(heightText, heightTextField);
         heightHBox.setSpacing(5.0);
         heightHBox.setAlignment(Pos.CENTER);
 
-        Text minesText = new Text("Количество мин(10 - 0,4*x*y):");
+        Text minesText = new Text("Amount of mines (10 - 0,4*x*y):");
         TextField minesTextField = new TextField(String.valueOf(MINES));
         HBox minesHBox = new HBox(minesText, minesTextField);
         minesHBox.setSpacing(5.0);
@@ -53,7 +53,7 @@ public class Settings {
                 MINES = Integer.parseInt(minesTextField.getText());
                 settingsWindow.close();
             } else {
-                ResultWindow.openResultWindow("Неверные параметры", "Вы ввели неверные параметры");
+                ResultWindow.openResultWindow("Wrong parameters", "Wrong input settings");
             }
         });
         HBox buttons = new HBox(okButton, cancelButton);
