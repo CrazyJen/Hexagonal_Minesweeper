@@ -42,11 +42,11 @@ public class Settings {
                 cancelButton = new Button("Отмена");
         cancelButton.setOnAction(e -> settingsWindow.close());
         okButton.setOnAction(e -> {
-            if (Integer.parseInt(heightTextField.getText()) <=15 && Integer.parseInt(heightTextField.getText()) >= 5 &&
+            if (Integer.parseInt(heightTextField.getText()) <= 15 && Integer.parseInt(heightTextField.getText()) >= 5 &&
                     Integer.parseInt(widthTextField.getText()) <= 20 &&
                     Integer.parseInt(widthTextField.getText()) >= 5 &&
-                    Integer.parseInt(minesTextField.getText()) <= 0.3 * Integer.parseInt(heightTextField.getText())*
-                    Integer.parseInt(widthTextField.getText())) {
+                    Integer.parseInt(minesTextField.getText()) <= 0.3 * Integer.parseInt(heightTextField.getText()) *
+                            Integer.parseInt(widthTextField.getText())) {
                 X_TILES = Integer.parseInt(heightTextField.getText());
                 Y_TILES = Integer.parseInt(widthTextField.getText());
                 MINES = Integer.parseInt(minesTextField.getText());

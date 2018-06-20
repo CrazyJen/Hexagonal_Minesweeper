@@ -19,7 +19,6 @@ public class Tile extends StackPane {
     private ImageView question = new ImageView(new Image("question.png"));
 
 
-
     public Tile(int xCoord, int yCoord, double TILE_SIZE, double Y_DISPLACEMENT, double X_DISPLACEMENT) {
         this.xCoord = xCoord;
         this.yCoord = yCoord;
@@ -95,8 +94,8 @@ public class Tile extends StackPane {
     }
 
     public void setFlagged(boolean flagged) {
-            isFlagged = flagged;
-            flag.setVisible(flagged);
+        isFlagged = flagged;
+        flag.setVisible(flagged);
     }
 
     public void setQuestion(boolean hsQuestion) {

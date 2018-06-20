@@ -1,5 +1,6 @@
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -12,6 +13,7 @@ public class MineField extends Pane {
     private int totallyOpened = 0;
     private boolean endMessageShown = false;
     private boolean firstClick = true;
+
     public MineField(int X_TILES, int Y_TILES, int MINES) {
         field = new Tile[X_TILES][Y_TILES];
         for (int x = 0; x < X_TILES; x++) {
@@ -41,7 +43,7 @@ public class MineField extends Pane {
             Random random = new Random();
             int x = random.nextInt(X_TILES);
             int y = random.nextInt(Y_TILES);
-            if (x != xFirst && y != yFirst){
+            if (x != xFirst && y != yFirst) {
                 Tile tile = field[x][y];
                 if (!tile.isMined()) {
                     tile.setMined();
@@ -63,6 +65,8 @@ public class MineField extends Pane {
                 }
             }
     }
+
+
     private List<Tile> getNeighbours(Tile tile, int X_TILES, int Y_TILES) {
         List<Tile> neighbours = new ArrayList<>();
         int x = tile.getxCoord();
@@ -75,7 +79,7 @@ public class MineField extends Pane {
         if (x % 2 == 0 && y > 0) {
             if (x - 1 >= 0) neighbours.add(field[x - 1][y - 1]);
             if (x + 1 < X_TILES) neighbours.add(field[x + 1][y - 1]);
-        } else if (y < Y_TILES - 1) {
+        } else if (x % 2 != 0 && y < Y_TILES - 1) {
             if (x - 1 >= 0) neighbours.add(field[x - 1][y + 1]);
             if (x + 1 < X_TILES) neighbours.add(field[x + 1][y + 1]);
         }
