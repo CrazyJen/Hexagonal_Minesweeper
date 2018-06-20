@@ -20,19 +20,19 @@ public class Settings {
         settingsWindow.initModality(Modality.APPLICATION_MODAL);
         settingsWindow.setTitle("Настройки");
 
-        Text widthText = new Text("Ячеек в ширину (5-20):");
+        Text widthText = new Text("Ячеек в ширину (5 - 20):");
         TextField widthTextField = new TextField(String.valueOf(Y_TILES));
         HBox widthHBox = new HBox(widthText, widthTextField);
         widthHBox.setSpacing(5);
         widthHBox.setAlignment(Pos.CENTER);
 
-        Text heightText = new Text("Ячеек в высоту (5-15):");
+        Text heightText = new Text("Ячеек в высоту (5 - 5):");
         TextField heightTextField = new TextField(String.valueOf(X_TILES));
         HBox heightHBox = new HBox(heightText, heightTextField);
         heightHBox.setSpacing(5.0);
         heightHBox.setAlignment(Pos.CENTER);
 
-        Text minesText = new Text("Количество мин(<0,3*x*y):");
+        Text minesText = new Text("Количество мин(10 - 0,4*x*y):");
         TextField minesTextField = new TextField(String.valueOf(MINES));
         HBox minesHBox = new HBox(minesText, minesTextField);
         minesHBox.setSpacing(5.0);
@@ -45,12 +45,15 @@ public class Settings {
             if (Integer.parseInt(heightTextField.getText()) <= 15 && Integer.parseInt(heightTextField.getText()) >= 5 &&
                     Integer.parseInt(widthTextField.getText()) <= 20 &&
                     Integer.parseInt(widthTextField.getText()) >= 5 &&
-                    Integer.parseInt(minesTextField.getText()) <= 0.3 * Integer.parseInt(heightTextField.getText()) *
-                            Integer.parseInt(widthTextField.getText())) {
+                    Integer.parseInt(minesTextField.getText()) <= 0.4 * Integer.parseInt(heightTextField.getText()) *
+                            Integer.parseInt(widthTextField.getText()) &&
+                    Integer.parseInt(minesTextField.getText()) >= 10) {
                 X_TILES = Integer.parseInt(heightTextField.getText());
                 Y_TILES = Integer.parseInt(widthTextField.getText());
                 MINES = Integer.parseInt(minesTextField.getText());
                 settingsWindow.close();
+            } else {
+                ResultWindow.openResultWindow("Неверные параметры", "Вы ввели неверные параметры");
             }
         });
         HBox buttons = new HBox(okButton, cancelButton);

@@ -17,7 +17,7 @@ public class ResultWindow {
         failWindow.setTitle(title);
 
         Text text = new Text(message);
-        text.setFont(Font.font(20));
+        text.setFont(Font.font(18));
 
         Button okButton = new Button("OK");
         okButton.setOnAction(e -> failWindow.close());
