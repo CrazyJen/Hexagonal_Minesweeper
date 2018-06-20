@@ -17,7 +17,7 @@ public class Main extends Application {
         Button newGameButton = new Button("Новая игра");
         newGameButton.setOnAction(e -> newGame());
         Button settingsButton = new Button("Настройки");
-        settingsButton.setOnAction(e -> Settings.openSettings());
+        settingsButton.setOnAction(e -> settings.openSettings());
         ToolBar toolBar = new ToolBar(newGameButton, settingsButton);
 
         root.setTop(toolBar);

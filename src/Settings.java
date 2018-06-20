@@ -15,7 +15,7 @@ public class Settings {
     private static int Y_TILES = 9;
     private static int MINES = 20;
 
-    public static void openSettings() {
+    public void openSettings() {
         Stage settingsWindow = new Stage();
         settingsWindow.initModality(Modality.APPLICATION_MODAL);
         settingsWindow.setTitle("Настройки");
